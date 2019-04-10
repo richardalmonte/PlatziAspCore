@@ -13,9 +13,9 @@ namespace PlatziAspCore.Controllers
         {
             var school = new School();
             school.FoundationYear = 2005;
-            school.SchoolId = Guid.NewGuid().ToString();
+            school.UniqueId = Guid.NewGuid().ToString();
             school.Name = "Platzi School";
-            ViewBag.DynamicData= "Test Text";
+            ViewBag.DynamicData = "Test Text";
             return View(school);
         }
         #endregion
