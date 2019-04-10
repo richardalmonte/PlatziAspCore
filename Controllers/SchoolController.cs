@@ -1,4 +1,6 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
+using PlatziAspCore.Models;
 
 namespace PlatziAspCore.Controllers
 {
@@ -9,7 +11,12 @@ namespace PlatziAspCore.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var school = new School();
+            school.FoundationYear = 2005;
+            school.SchoolId = Guid.NewGuid().ToString();
+            school.Name = "Platzi School";
+            
+            return View(school);
         }
         #endregion
 

@@ -1,9 +1,10 @@
 ﻿@{
     ViewData["Title"] = "School Information";
+    Layout= "_Layout";
 }
 
 <h1>School</h1>
-<h2>Name:</h2>
+<h2>Name:@Model.Name</h2>
 <p>
-   <strong>Year of Foundation:</strong> 
+   <strong>Year of Foundation: @Model.FoundationYear</strong> 
 </p>
