@@ -1,6 +1,10 @@
 namespace PlatziAspCore.Models
 {
-    public class SchoolType : BaseSchoolObject
+    public enum SchoolType
     {
+        PreScholar,
+        Basic,
+        Middle,
+        High
     }
 }
