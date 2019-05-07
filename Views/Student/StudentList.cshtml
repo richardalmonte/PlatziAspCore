@@ -1,12 +1,13 @@
-@model List<Subject>
+@model List<Student>
 @{
-    ViewData["Title"] = "School Information";
+    ViewData["Title"] = "Student Information";
     Layout= "Simple";
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <strong>From the partial View</strong>
-<partial name="SimpleSchoolObject"/>    
+
+<partial name="SchoolObjectList"/>
 
 <p><i>@ViewData["Date"]</i></p>
