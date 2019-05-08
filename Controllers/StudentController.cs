@@ -14,7 +14,7 @@ namespace PlatziAspCore.Controllers
         public IActionResult Index()
         {
             var student = new Student();
-            student.UniqueId = Guid.NewGuid().ToString();
+            student.Id = Guid.NewGuid().ToString();
             student.Name = "Pepe Perez";
 
             return View(student);
@@ -36,9 +36,9 @@ namespace PlatziAspCore.Controllers
             var students = from n1 in name1
                            from n2 in name2
                            from a1 in surName1
-                           select new Student { Name = $"{n1} {n2} {a1}", UniqueId = Guid.NewGuid().ToString() };
+                           select new Student { Name = $"{n1} {n2} {a1}", Id = Guid.NewGuid().ToString() };
 
-            return students.OrderBy((x) => x.UniqueId).ToList();
+            return students.OrderBy((x) => x.Id).ToList();
         }
         #endregion
     }

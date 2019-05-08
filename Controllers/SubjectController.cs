@@ -13,7 +13,7 @@ namespace PlatziAspCore.Controllers
         public IActionResult Index()
         {
             var subject = new Subject();
-            subject.UniqueId = Guid.NewGuid().ToString();
+            subject.Id = Guid.NewGuid().ToString();
             subject.Name = "Programming";
 
             return View(subject);
@@ -23,23 +23,23 @@ namespace PlatziAspCore.Controllers
             var subject = new List<Subject>(){
                 new Subject{
                     Name ="Programming",
-                    UniqueId = Guid.NewGuid().ToString()
+                    Id = Guid.NewGuid().ToString()
                 },
                 new Subject{
                     Name ="Mathematics",
-                    UniqueId = Guid.NewGuid().ToString()
+                    Id = Guid.NewGuid().ToString()
                 },
                 new Subject{
                     Name ="Physics",
-                    UniqueId = Guid.NewGuid().ToString()
+                    Id = Guid.NewGuid().ToString()
                 },
                 new Subject{
                     Name ="English",
-                    UniqueId = Guid.NewGuid().ToString()
+                    Id = Guid.NewGuid().ToString()
                 },
                 new Subject{
                     Name ="History",
-                    UniqueId = Guid.NewGuid().ToString()
+                    Id = Guid.NewGuid().ToString()
                 }
             };
             ViewBag.DynamicData = "Test Text";

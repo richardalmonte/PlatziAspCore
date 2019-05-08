@@ -16,7 +16,7 @@ namespace PlatziAspCore.Controllers
         {
             // var school = new School();
             // school.FoundationYear = 2005;
-            // school.UniqueId = Guid.NewGuid().ToString();
+            // school.Id = Guid.NewGuid().ToString();
             // school.Name = "Platzi School";
             // school.City = "Bogotá";
             // school.Country = "Colombia";
@@ -33,7 +33,7 @@ namespace PlatziAspCore.Controllers
 
         public SchoolController(SchoolContext context)
         {
-            context = this.context;
+            this.context = context;
         }
         #endregion
     }

@@ -27,7 +27,7 @@ namespace PlatziAspCore.Models
     {
         #region Properties
 
-        public string UniqueId { get; private set; }
+        public string Id { get; private set; }
         public string Name { get; set; }
         public Student Student { get; set; }
         public Subject Subject { get; set; }
@@ -39,7 +39,7 @@ namespace PlatziAspCore.Models
 
         public Evaluations()
         {
-            UniqueId = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid().ToString();
         }
 
         #endregion

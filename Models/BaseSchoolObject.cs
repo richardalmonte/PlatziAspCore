@@ -6,7 +6,7 @@ namespace PlatziAspCore.Models
     {
         #region Properties
 
-        public string UniqueId { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
 
         #endregion
@@ -22,7 +22,7 @@ namespace PlatziAspCore.Models
 
         public override string ToString()
         {
-            return $"{Name}, {UniqueId}";
+            return $"{Name}, {Id}";
         }
 
         #endregion
