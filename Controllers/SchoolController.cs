@@ -8,8 +8,17 @@ namespace PlatziAspCore.Controllers
     public class SchoolController : Controller
     {
         #region Fields
-        private SchoolContext context;
+        private readonly SchoolContext context;
         #endregion
+        
+        #region Constructors
+
+        public SchoolController(SchoolContext context)
+        {
+            this.context = context;
+        }
+        #endregion
+
         #region Actions
 
         public IActionResult Index()
@@ -26,14 +35,6 @@ namespace PlatziAspCore.Controllers
             ViewBag.DynamicData = "Test Text";
             var school = context.Schools.FirstOrDefault();
             return View(school);
-        }
-        #endregion
-
-        #region Constructors
-
-        public SchoolController(SchoolContext context)
-        {
-            this.context = context;
         }
         #endregion
     }

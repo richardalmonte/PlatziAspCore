@@ -25,14 +25,16 @@ namespace PlatziAspCore.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            var school = new School();
-            school.FoundationYear = 2005;
-            school.Id = Guid.NewGuid().ToString();
-            school.Name = "Platzi School";
-            school.City = "Bogotá";
-            school.Country = "Colombia";
-            school.SchoolType = SchoolType.High;
-            school.Address = "Av. Siempre Viva";
+            var school = new School
+            {
+                FoundationYear = 2005,
+                Id = Guid.NewGuid().ToString(),
+                Name = "Platzi School",
+                City = "Bogotá",
+                Country = "Colombia",
+                SchoolType = SchoolType.High,
+                Address = "Av. Siempre Viva"
+            };
             modelBuilder.Entity<School>().HasData(school);
 
             modelBuilder.Entity<Subject>().HasData(
