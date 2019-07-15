@@ -22,10 +22,21 @@ namespace PlatziAspCore.Controllers
 
         #region Actions
 
-        public IActionResult Index()
+        [Route("Subject")]
+        [Route("Subject/Index")]
+        [Route("Subject/Index/{subjectId}")]
+        public IActionResult Index(string subjectId)
         {
-            return View(context.Subjects.FirstOrDefault());
+            if (!string.IsNullOrWhiteSpace(subjectId))
+            {
+                return View(context.Subjects.SingleOrDefault(x => x.Id == subjectId));
+            }
+            else
+            {
+                return View("SubjectList", context.Subjects);
+            }
         }
+
         public IActionResult SubjectList()
         {
             ViewBag.DynamicData = "Test Text";
