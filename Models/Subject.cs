@@ -4,8 +4,10 @@ namespace PlatziAspCore.Models
     {
         #region Properties
 
+        public string CourseId { get; set; }
 
-
+        public Course Course { get; set; }
+        
         #endregion
     }
 }
