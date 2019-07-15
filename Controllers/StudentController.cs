@@ -23,10 +23,24 @@ namespace PlatziAspCore.Controllers
 
         #region Actions
 
-        public IActionResult Index()
+        [Route("Student/{studentId}")]
+        [Route("Student/Index/{studentId}")]
+        public IActionResult Index(string studentId)
         {
-            return View(context.Students.FirstOrDefault());
+            if (!string.IsNullOrWhiteSpace(studentId))
+            {
+                return View(context.Students.SingleOrDefault(x => x.Id == studentId));
+            }
+            else
+            {
+                return View("StudentList", context.Students);
+            }
         }
+
+
+        [Route("Student")]
+        [Route("Student/Index")]
+        [Route("Student/studentList")]
         public IActionResult StudentList()
         {
             ViewBag.DynamicData = "Test Text";
@@ -34,19 +48,7 @@ namespace PlatziAspCore.Controllers
             return View(context.Students);
         }
 
-        //private List<Student> GenerateRStudents()
-        //{
-        //    string[] name1 = { "Alba", "Felipa", "Eusebio", "Farid", "Donald", "Alvaro", "Nicolás" };
-        //    string[] surName1 = { "Ruiz", "Sarmiento", "Uribe", "Maduro", "Trump", "Toledo", "Herrera" };
-        //    string[] name2 = { "Freddy", "Anabel", "Rick", "Murty", "Silvana", "Diomedes", "Nicomedes", "Teodoro" };
 
-        //    var students = from n1 in name1
-        //                   from n2 in name2
-        //                   from a1 in surName1
-        //                   select new Student { Name = $"{n1} {n2} {a1}", Id = Guid.NewGuid().ToString() };
-
-        //    return students.OrderBy((x) => x.Id).ToList();
-        //}
         #endregion
     }
 }
