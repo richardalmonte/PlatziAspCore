@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PlatziAspCore.Models
 {
@@ -6,6 +7,10 @@ namespace PlatziAspCore.Models
     {
         #region Properties
 
+        [Required]
+        public override string Name { get; set; }
+
+        [Required]
         public DayType DayType { get; set; }
 
         public List<Subject> Subjects { get; set; }

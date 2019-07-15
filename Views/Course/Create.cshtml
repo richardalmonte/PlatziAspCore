@@ -1,0 +1,36 @@
+@model Course
+@{
+    ViewData["Title"] = "Creating a Course";
+    Layout = "Simple";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h2>@ViewBag.Message</h2>
+
+<form method="post">
+
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+    </div>
+
+    <div>
+        <label asp-for="Address"></label>
+        <input asp-for="Address" />
+    </div>
+    <div>
+        <label asp-for="DayType"></label>
+
+        @Html.DropDownList(
+            "DayType", Html.GetEnumSelectList<DayType>(),
+            "Select a DayType",
+            new {@class="form-control"}
+
+            );
+    </div>
+
+    <input type="submit" />
+</form>
+<div asp-validation-summary="All"></div>
+
+<p><i>@ViewData["Date"]</i></p>

@@ -50,6 +50,37 @@ namespace PlatziAspCore.Controllers
             ViewBag.Date = DateTime.Now;
             return View(context.Courses);
         }
+
+        [Route("Course/Create")]
+        public IActionResult Create()
+        {
+            ViewBag.Date = DateTime.Now;
+            return View();
+        }
+
+        [HttpPost]
+        [Route("Course/Create")]
+        public IActionResult Create(Course course)
+        {
+            if (ModelState.IsValid)
+            {
+                course.Id = Guid.NewGuid().ToString();
+                var school = context.Schools.FirstOrDefault();
+                course.SchoolId = school?.Id;
+
+                context.Courses.Add(course);
+
+                context.SaveChanges();
+
+                ViewBag.Message = "Created View";
+                return View("Index", course);
+            }
+            else
+            {
+                return View(course);
+            }
+
+        }
         #endregion
     }
 }
