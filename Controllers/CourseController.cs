@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -33,10 +32,17 @@ namespace PlatziAspCore.Controllers
 
         [Route("Course")]
         [Route("Course/Index")]
-        public async Task<IActionResult> Index(string courseId)
+        public async Task<IActionResult> Index()
         {
             var courses = context.Courses.Include(c => c.School);
             return View(await courses.ToListAsync());
+        }
+
+        [Route("Course/CourseList")]
+        public async Task<IActionResult> Index(string id)
+        {
+            var courses = context.Courses.Include(c => c.School);
+            return View("CourseList", await courses.ToListAsync());
         }
 
 
@@ -44,16 +50,16 @@ namespace PlatziAspCore.Controllers
         [Route(template: "Course/{courseId}")]
         [Route(template: "Course/Index/{courseId}")]
         [Route(template: "Course/Details/{courseId}")]
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(string courseId)
         {
-            if (id == null)
+            if (courseId == null)
             {
                 return NotFound();
             }
 
             var course = await context.Courses
                                       .Include(navigationPropertyPath: c => c.School)
-                                      .FirstOrDefaultAsync(predicate: m => m.Id == id);
+                                      .FirstOrDefaultAsync(predicate: m => m.Id == courseId);
             if (course == null)
             {
                 return NotFound();
@@ -86,7 +92,7 @@ namespace PlatziAspCore.Controllers
                 context.SaveChanges();
 
                 ViewBag.Message = "Created View";
-                return View("Index", course);
+                return View("Details", course);
             }
             else
             {
@@ -110,7 +116,7 @@ namespace PlatziAspCore.Controllers
             }
 
             ViewData["SchoolId"] = new SelectList(context.Schools, "Id", "Id", course.SchoolId);
-            
+
             return View(course);
         }
 

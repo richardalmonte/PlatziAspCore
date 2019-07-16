@@ -1,18 +1,48 @@
 ﻿@* @model List<BaseSchoolObject> *@
 
-<table class="table table-dark table-hover">
-    <thead>
+<table class="table table-hover table-striped">
+    <thead class="thead-dark">
         <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Id</th>
+            <th scope="col">
+                @*@Html.DisplayNameFor(model => model.Name)*@
+                Name
+            </th>
+            <th scope="col">
+                @*@Html.DisplayNameFor(model => model.DayType)*@
+                Id
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.School)
+                </th>*@
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var schoolObject in Model)
         {
             <tr>
-                <td>@schoolObject.Name</td>
-                <td>@schoolObject.Id</td>
+                <td scope="row">
+                    @* @Html.DisplayFor(modelItem => schoolObject.Name)*@
+                    @schoolObject.Name
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => schoolObject.DayType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => schoolObject.Address)
+                </td>*@
+                <td>
+                    @*@Html.DisplayFor(modelItem => schoolObject.School.Id)*@
+                    @schoolObject.Id
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@schoolObject.Id" class="btn btn-success">Edit</a>
+                    <a asp-action="Details" asp-route-id="@schoolObject.Id" class="btn btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@schoolObject.Id" class="btn btn-danger">Delete</a>
+                </td>
             </tr>
         }
     </tbody>

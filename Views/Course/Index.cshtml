@@ -11,8 +11,8 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table table-dark table-hover">
-    <thead>
+<table class="table table-hover table-striped">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -33,7 +33,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td scope="row">
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
@@ -46,9 +46,9 @@
                     @Html.DisplayFor(modelItem => item.School.Id)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
