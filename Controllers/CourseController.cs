@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using PlatziAspCore.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,7 +15,9 @@ namespace PlatziAspCore.Controllers
     {
 
         #region Fields
+
         private readonly SchoolContext context;
+
         #endregion
 
         #region Constructors
@@ -22,34 +26,42 @@ namespace PlatziAspCore.Controllers
         {
             this.context = context;
         }
+
         #endregion
 
         #region Actions
 
-        [Route("Course/{courseId}")]
-        [Route("Course/Index/{courseId}")]
-        public IActionResult Index(string courseId)
-        {
-            if (!string.IsNullOrWhiteSpace(courseId))
-            {
-                return View(context.Courses.SingleOrDefault(x => x.Id == courseId));
-            }
-            else
-            {
-                return View("CourseList", context.Courses);
-            }
-        }
-
-
         [Route("Course")]
         [Route("Course/Index")]
-        [Route("Course/CourseList")]
-        public IActionResult CourseList()
+        public async Task<IActionResult> Index(string courseId)
         {
-            ViewBag.DynamicData = "Test Text";
-            ViewBag.Date = DateTime.Now;
-            return View(context.Courses);
+            var courses = context.Courses.Include(c => c.School);
+            return View(await courses.ToListAsync());
         }
+
+
+        // GET: Courses/Details/5
+        [Route(template: "Course/{courseId}")]
+        [Route(template: "Course/Index/{courseId}")]
+        [Route(template: "Course/Details/{courseId}")]
+        public async Task<IActionResult> Details(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var course = await context.Courses
+                                      .Include(navigationPropertyPath: c => c.School)
+                                      .FirstOrDefaultAsync(predicate: m => m.Id == id);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            return View(model: course);
+        }
+
 
         [Route("Course/Create")]
         public IActionResult Create()
@@ -60,6 +72,7 @@ namespace PlatziAspCore.Controllers
 
         [HttpPost]
         [Route("Course/Create")]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Course course)
         {
             if (ModelState.IsValid)
@@ -81,6 +94,100 @@ namespace PlatziAspCore.Controllers
             }
 
         }
-        #endregion
+
+        // GET: CoursesControllerTest/Edit/5
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var course = await context.Courses.FindAsync(id);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            ViewData["SchoolId"] = new SelectList(context.Schools, "Id", "Id", course.SchoolId);
+            
+            return View(course);
+        }
+
+        // POST: CoursesControllerTest/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string id, [Bind("Name,DayType,Address,SchoolId,Id")]
+            Course course)
+        {
+            if (id != course.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    context.Update(course);
+                    await context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CourseExists(course.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            ViewData["SchoolId"] = new SelectList(context.Schools, "Id", "Id", course.SchoolId);
+            return View(course);
+        }
+
+        // GET: CoursesControllerTest/Delete/5
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var course = await context.Courses
+                .Include(c => c.School)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            return View(course);
+        }
+
+        // POST: CoursesControllerTest/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var course = await context.Courses.FindAsync(id);
+            context.Courses.Remove(course);
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool CourseExists(string id)
+        {
+            return context.Courses.Any(e => e.Id == id);
+
+            #endregion
+        }
     }
 }
