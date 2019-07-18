@@ -7,30 +7,45 @@
 <h1>@ViewData["Title"]</h1>
 <h2>@ViewBag.Message</h2>
 
-<form method="post">
-
-    <div>
-        <label asp-for="Name"></label>
-        <input asp-for="Name" />
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DayType" class="control-label"></label>
+                <select asp-for="DayType" class="form-control" asp-items="Html.GetEnumSelectList<DayType>()">
+                    <option value="">Please select...</option>
+                </select>
+                <span asp-validation-for="DayType" class="text-danger" ></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SchoolId" class="control-label"></label>
+                <select asp-for="SchoolId" class="form-control"  asp-items="ViewBag.SchoolList">
+                    <option value="">Please select...</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
     </div>
+</div>
 
-    <div>
-        <label asp-for="Address"></label>
-        <input asp-for="Address" />
-    </div>
-    <div>
-        <label asp-for="DayType"></label>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 
-        @Html.DropDownList(
-            "DayType", Html.GetEnumSelectList<DayType>(),
-            "Select a DayType",
-            new {@class="form-control"}
 
-            );
-    </div>
-
-    <input type="submit" />
-</form>
-<div asp-validation-summary="All"></div>
 
 <p><i>@ViewData["Date"]</i></p>

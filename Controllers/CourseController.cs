@@ -38,13 +38,7 @@ namespace PlatziAspCore.Controllers
             return View(await courses.ToListAsync());
         }
 
-        [Route("Course/CourseList")]
-        public async Task<IActionResult> Index(string id)
-        {
-            var courses = context.Courses.Include(c => c.School);
-            return View("CourseList", await courses.ToListAsync());
-        }
-
+        
 
         // GET: Courses/Details/5
         [Route(template: "Course/{courseId}")]
@@ -73,6 +67,7 @@ namespace PlatziAspCore.Controllers
         public IActionResult Create()
         {
             ViewBag.Date = DateTime.Now;
+            ViewData["SchoolList"] = new SelectList(context.Schools, "Id", "Name");
             return View();
         }
 
@@ -96,6 +91,7 @@ namespace PlatziAspCore.Controllers
             }
             else
             {
+                ViewData["SchoolList"] = new SelectList(context.Schools, "Id", "Name");
                 return View(course);
             }
 
@@ -115,7 +111,7 @@ namespace PlatziAspCore.Controllers
                 return NotFound();
             }
 
-            ViewData["SchoolId"] = new SelectList(context.Schools, "Id", "Id", course.SchoolId);
+            ViewData["SchoolList"] = new SelectList(context.Schools, "Id", "Name");
 
             return View(course);
         }
@@ -155,7 +151,7 @@ namespace PlatziAspCore.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["SchoolId"] = new SelectList(context.Schools, "Id", "Id", course.SchoolId);
+            ViewData["SchoolList"] = new SelectList(context.Schools, "Id", "Name");
             return View(course);
         }
 
