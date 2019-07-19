@@ -1,14 +1,14 @@
-﻿@model PlatziAspCore.Models.Course
+﻿@model PlatziAspCore.Models.Evaluation
 
 @{
-    ViewData["Title"] = "Course Details";
+    ViewData["Title"] = "Evaluation Details";
     Layout = "Simple";
 }
 
 <h2>@ViewData["Title"]</h2>
 
 <div>
-    <h4>Course</h4>
+    <h4>Evaluation</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -18,22 +18,22 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.DayType)
+            @Html.DisplayNameFor(model => model.Student)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.DayType)
+            @Html.DisplayFor(model => model.Student.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Address)
+            @Html.DisplayNameFor(model => model.Subject)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Address)
+            @Html.DisplayFor(model => model.Subject.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.School)
+            @Html.DisplayNameFor(model => model.Grade)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.School.Id)
+            @Html.DisplayFor(model => model.Grade)
         </dd>
     </dl>
 </div>
