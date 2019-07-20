@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PlatziAspCore.Models
 {
@@ -13,6 +14,7 @@ namespace PlatziAspCore.Models
         [Display(Name = "Course")]
         public string CourseId { get; set; }
 
+        [ForeignKey(nameof(CourseId))]
         public Course Course { get; set; }
 
         public List<Evaluation> Evaluations { get; set; }

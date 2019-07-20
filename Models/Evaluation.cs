@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PlatziAspCore.Models
 {
@@ -10,16 +11,18 @@ namespace PlatziAspCore.Models
         [Required]
         public override string Name { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Subject")]
         public string SubjectId { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Student")]
         public string StudentId { get; set; }
 
+        [ForeignKey(nameof(StudentId))]
         public Student Student { get; set; }
 
+        [ForeignKey(nameof(SubjectId))]
         public Subject Subject { get; set; }
 
         [Range(0, 5)]

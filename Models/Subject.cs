@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PlatziAspCore.Models
 {
@@ -14,6 +15,7 @@ namespace PlatziAspCore.Models
         [Display(Name = "Course")]
         public string CourseId { get; set; }
 
+        [ForeignKey(nameof(CourseId))]
         public Course Course { get; set; }
 
         #endregion

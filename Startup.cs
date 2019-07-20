@@ -30,14 +30,14 @@ namespace PlatziAspCore
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            // Injects the DbContext
-            services.AddDbContext<SchoolContext>(
-                options => options.UseInMemoryDatabase(databaseName: "TestDb")
-            );
+            //// Injects the DbContext
+            //services.AddDbContext<SchoolContext>(
+            //    options => options.UseInMemoryDatabase(databaseName: "TestDb")
+            //);
 
-            var connectionString = ConfigurationExtensions.GetConnectionString(this.Configuration, "DefaultConnection");
+            var connectionString = ConfigurationExtensions.GetConnectionString(this.Configuration, "DefaultConnectionString");
             services.AddDbContext<SchoolContext>(
-                options => options.UseSqlServer(connectionString).UseInMemoryDatabase(databaseName: "TestDb")
+                options => options.UseSqlServer(connectionString)
             );
         }
 
