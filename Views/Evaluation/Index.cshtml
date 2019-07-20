@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "Evaluation List";
-    Layout = "Simple";
+     Layout = "_Layout";
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -11,8 +11,8 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-hover table-striped">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
