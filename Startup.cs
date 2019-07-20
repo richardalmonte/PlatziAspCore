@@ -34,6 +34,11 @@ namespace PlatziAspCore
             services.AddDbContext<SchoolContext>(
                 options => options.UseInMemoryDatabase(databaseName: "TestDb")
             );
+
+            var connectionString = ConfigurationExtensions.GetConnectionString(this.Configuration, "DefaultConnection");
+            services.AddDbContext<SchoolContext>(
+                options => options.UseSqlServer(connectionString).UseInMemoryDatabase(databaseName: "TestDb")
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
